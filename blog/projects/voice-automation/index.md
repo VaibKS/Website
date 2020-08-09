@@ -8,11 +8,6 @@ tags: IoT, voice assistant, python
 
 # Voice Controlled IoT Automation (Google Assistant)
 
-| Name   | Email  |
-|--------|--------|
-| Vaibhav | vaibhav@hey.com |
-| Vaibhav | vaibhav@hey.com |
-
 Ever thought of automating some IoT with your voice?
 You can do it now through your phone!
 

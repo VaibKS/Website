@@ -22,7 +22,6 @@ export default {
   }),
   created () {
     for (let page of this.$site.pages.reverse()) {
-      console.log(page.frontmatter.hide)
       if (page.frontmatter.type == 'project' && !page.frontmatter.hide) {
         this.pages.push(page)
       }
