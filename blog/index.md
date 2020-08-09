@@ -5,7 +5,7 @@ pageClass: home
 
 <div class="mt-12 mb-20">
 
-<img src="./about/me-bw.jpg" class="max-h-64 rounded-full shadow-lg"/>
+<img src="./about/me-bw.jpg" class="max-h-64 mx-auto rounded-full shadow-lg"/>
 
 <div class="font-sans font-extrabold tracking-tighter my-8 text-3xl md:text-5xl text-center">
   Fullstack developer <br>

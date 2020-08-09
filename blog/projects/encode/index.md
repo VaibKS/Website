@@ -1,8 +1,9 @@
 ---
 title: enCode - Online Code Editor
-category: project
+type: project
 date: 2020-07-01
-publish: true
+tags: tool
+image: https://raw.githubusercontent.com/VaibKS/editor/master/images/editor.png
 ---
 
 # enCode Code Editor

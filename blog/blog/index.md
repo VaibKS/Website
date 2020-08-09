@@ -1,3 +1,7 @@
+---
+pageClass: showcase
+---
+
 # Blog
 
 <BlogPosts/>

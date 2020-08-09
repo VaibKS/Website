@@ -1,7 +1,7 @@
 <template>
   <div class="theme-container" :class="[{'mobile-active': navBar}, $page.frontmatter.pageClass]">
 
-    <header class="flex relative flex-col md:flex-row h-24 md:items-center md:h-24 w-full py-4 px-6 md:px-12" :class="{'mobile-active': navBar}">
+    <header class="z-20 flex relative flex-col md:flex-row h-24 md:items-center md:h-24 w-full py-4 px-6 md:px-12" :class="{'mobile-active': navBar}">
       <div class="flex justify-between h-16 z-50 text-3xl font-bold items-center">
         <h1 class="logo font-merienda font-bold">
           <router-link to="/" @click.native="navBar = false">
@@ -25,9 +25,9 @@
       <transition name="slide-fade">
         <nav v-show="navBar" class="mobile-nav md:hidden fixed w-full px-6 flex flex-1 flex-col justify-evenly items-center md:items-end font-sans font-hairline tracking-wide">
           <div class="w-full text-right flex flex-col text-3xl items-center">
-            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-6" to="/about">About</router-link>
-            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-6" to="/projects">Projects</router-link>
-            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-6" to="/blog">Blog</router-link>
+            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-8" to="/about">About</router-link>
+            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-8" to="/projects">Projects</router-link>
+            <router-link @click.native="navBar = false" class="w-full rounded-lg py-2 my-2 md:ml-8" to="/blog">Blog</router-link>
           </div>
         </nav>
       </transition>
@@ -37,8 +37,9 @@
       
       <div class="w-full lg:max-w-4xl md:px-12 mx-auto">
 
-        <div class="text-5xl md:text-center lg:text-left tracking-tight font-inter font-extrabold my-20 leading-none">
-          Welcome to my place!
+        <div class="text-5xl text-center tracking-tight font-inter font-extrabold my-20 leading-tight">
+          Welcome to my place!<br>
+          I build and break stuff 👀
         </div>
 
         <div class="flex action-links md:justify-center justify-end lg:justify-end">
@@ -55,11 +56,33 @@
       </div>
 
     </div>
-  
-    <Content class="block py-2 pb-12 px-6 md:px-12 text-base text-gray-700"/>
 
-    <footer class="w-full h-32 flex items-center justify-center bg-gray-800">
-      <div class="flex">
+    <div v-if="!$page.frontmatter.home" class="relative flex z-30 -mt-4 mb-6 items-center space-between">
+      
+      <div class="flex-1 bg-cool-gray-200 h-px"></div>
+
+      <svg class="w-6 lg:w-8 mx-4 text-teal-500" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+
+      <div class="flex-1 bg-cool-gray-200 h-px"></div>
+
+    </div>
+
+    <div v-if="$page.frontmatter.image" class="bg-cover w-full  z-0 relative mx-auto">
+      <img class="w-full max-h-64 md:max-h-96 object-cover shadow-2xl" :src="$page.frontmatter.image"/>
+    </div>
+  
+    <Content class="bg-white block py-2 pb-12 px-6 md:px-12 text-base text-gray-700" :class="{ 'prose md:prose-lg': ($page.frontmatter.prose || ['article', 'project'].includes($page.frontmatter.type)) }"/>
+
+    <footer class="w-full h-40 mt-12 flex flex-col items bg-cool-gray-900 shadow-2xl">
+
+      <div v-if="!$page.frontmatter.home" class="relative h-12 flex -mt-12 justify-center space-between">
+
+        <svg class="h-12 mt-6 text-indigo-600 cursor-pointer hover:text-indigo-400" @click="scrollTop" title="Scroll to top" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+            
+        <!-- <svg class="text-shadow w-20 -mx-4 text-yellow-300" fill="yellow" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24" stroke="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> -->
+
+      </div>
+      <div class="flex h-full items-center justify-center">
 
         <a class="social-link mx-4" href="https://linkedin.com/in/vaibhav-krishnaji">
           <svg data-name="linkedin" class="fill-current h-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -95,7 +118,6 @@ export default {
     navBar: false
   }),
   mounted () {
-    console.log(this.$page)
     this.initPageLoad()
   },
   watch: {
@@ -113,6 +135,9 @@ export default {
           imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
         }
       }
+    },
+    scrollTop () {
+      document.body.scrollTop = document.documentElement.scrollTop = 0
     }
   }
 }

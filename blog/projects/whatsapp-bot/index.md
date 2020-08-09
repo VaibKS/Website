@@ -1,7 +1,8 @@
 ---
 title: WhatsApp Bot Library in C
 date: 2020-07-01
-category: project
+type: project
+tags: WhatsApp, bot, C
 publish: true
 ---
 

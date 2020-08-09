@@ -1,12 +1,17 @@
 ---
 title: Voice Controlled IoT Automation (Google Assistant)
-category: project
+type: project
 date: 2020-04-24
 sidebar: auto
-publish: true
+tags: IoT, voice assistant, python
 ---
 
 # Voice Controlled IoT Automation (Google Assistant)
+
+| Name   | Email  |
+|--------|--------|
+| Vaibhav | vaibhav@hey.com |
+| Vaibhav | vaibhav@hey.com |
 
 Ever thought of automating some IoT with your voice?
 You can do it now through your phone!
@@ -154,8 +159,8 @@ client.connect()
 # so in a background thread--see the mqtt_client.py example to learn more.
 client.loop_blocking()
 ```
-- Insert the following data into the code above:
 
+- Insert the following data into the code above
   - Adafruit IO API Key
   - Adafruit IO Username
   - Feed name, here `light`.

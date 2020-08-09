@@ -1,4 +1,8 @@
-# <a name="top"></a>Markdown Test Page
+---
+prose: true
+---
+
+# Markdown Test Page
 
 1. List
 2. Testing

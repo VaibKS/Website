@@ -1,13 +1,15 @@
 <template>
   <div class="project-posts">
-    <h5>Recent Blog Posts</h5>
-    <div class="flex md:flex-col flex-wrap mt-4">
-
+    <h5 class="font-semibold mt-8">Recent Blog Posts</h5>
+    <div class="flex md:flex-col flex-wrap mt-6">
+      
       <div class="italic text-center py-12 text-gray-400" v-if="pages.length == 0">
-        No blog posts yet..
+        No projects yet..
       </div>
 
-      <PostCard v-for="page in pages" :page="page" :key="page.title"/>
+      <div class="w-full flex flex-col md:flex-row flex-wrap md:items-stretch">
+        <PostCard v-for="page in pages" :page="page" :key="page.title"/>
+      </div>
     
     </div>
   </div>
@@ -20,7 +22,7 @@ export default {
   }),
   created () {
     for (let page of this.$site.pages.reverse()) {
-      if (page.frontmatter.category == 'article' && page.frontmatter.publish) {
+      if (page.frontmatter.type == 'article' && !page.frontmatter.hide) {
         this.pages.push(page)
       }
     }
