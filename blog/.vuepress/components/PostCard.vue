@@ -1,23 +1,29 @@
 <template>
   <router-link class="md:w-80 flex flex-col md:flex-none m-2 rounded-lg border border-indigo-300 bg-white overflow-hidden shadow-xs transition-all duration-300 hover:shadow-2xl" :to="page.path">
     
-    <img v-if="image" class="clip-img w-full h-48 object-cover" :src="image"/>
+    <div class="h-48">
+      <img v-if="image" class="clip-img w-full h-48 min-h-full object-cover" :src="image"/>
+    </div>
 
     <div class="flex flex-col h-full justify-between p-4">
 
-      <h4 class="text-lg font-semibold text-indigo-800">
-          {{ page.title }}
-      </h4>
-      
-      <div v-if="tags" class="tags flex flex-wrap mt-2">
-        <div class="tag inline-block text-sm my-1 py-1 px-4 rounded-md bg-indigo-100 text-indigo-700 font-medium mr-2" v-for="tag of tags" :key="tag">
-          {{ tag }}
+      <div class="">
+
+        <h4 class="text-lg font-semibold text-indigo-800">
+            {{ page.title }}
+        </h4>
+        
+        <div v-if="tags" class="tags flex flex-wrap mt-2">
+          <div class="tag inline-block text-sm my-1 py-1 px-4 rounded-md bg-indigo-100 text-indigo-700 font-medium mr-2" v-for="tag of tags" :key="tag">
+            {{ tag }}
+          </div>
         </div>
+        
+        <p class="text-sm mt-4 text-gray-600 leading-normal">
+          {{ stripHTML(page.excerpt) }}
+        </p>
+
       </div>
-      
-      <p class="text-sm mt-4 text-gray-600 leading-normal">
-        {{ stripHTML(page.excerpt) }}
-      </p>
 
       <div class="flex text-sm md:text-xs mt-6 justify-end">
         <div class="svg-btn text-gray-600 font-semibold">
