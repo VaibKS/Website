@@ -4,7 +4,6 @@ type: article
 date: 2020-10-06
 sidebar: auto
 tags: ctf, hack, bugpoc
-hide: true
 ---
 
 <img alt="BugPoC Logo" style="margin: 40px auto 60px auto; display: block; width: 140px;" src="https://bugpoc.com/icons/bugpoc-small.png"/> 
@@ -23,7 +22,7 @@ Link to buggywebsite: [https://social.buggywebsite.com](https://social.buggywebs
 
 #### PoC Collection
 
-Read on for more info, but here's the PoC's just in case you just want to see it in action!
+Read on for more info, but here's the PoC's just in case you just want to see it in action, thanks to the BugPoC HTTP Repeater!
 
 | PoC | Link | Password |
 |-----|------|----------|
@@ -40,7 +39,7 @@ When you visit the page you'll see this page, which would allow you to share thi
 
 What I first did was look at the JavaScript file, which is `script.min.js`, since I've already used BugPoC, I knew a little how they write their code, and they didn't minify the ecode much which made it easier to read.
 
-Instead of showing the code, I'll tell you the things it does, which led me to find the vulnerability, since it's all happening server side.
+Instead of showing the code, I'll tell you the things it does, which led me to find the vulnerability, since it's all happening in the backend.
 
 When you start typing into the text box, you'll see:
 - Multiple buttons pop up as you type, which are links to share what your wrote to some social media platforms, which didn't feel like a place to perform LFI.  **Not so important**.
@@ -49,6 +48,8 @@ When you start typing into the text box, you'll see:
 
 - Any URL that begins with `https?://` is grabbed and a POST request with the URL is sent to `https://api.buggywebsite.com/website-preview`. **Important!**.
 
+So I just tried entering their URL itself.
+
 The request would look like:
 
 ```http
@@ -56,6 +57,7 @@ POST /website-preview HTTP/1.1
 Host: api.buggywebsite.com
 Connection: close
 Content-Length: 68
+Content-Type: application/json
 Accept: application/json
 
 {"url":"http://social.buggywebsite.com","requestTime":1601872536277}
@@ -102,7 +104,7 @@ So, I thought I got this now!
 
 I'll have to craft an HTML page with a meta tag with property `og:image` set to `file:///etc/passwd`, which the server will then fetch and respond back to me!
 
-You can create frontend http pages on services like codepen, glitch etc. But BugPoC has this great tool called [`Mock Endpoint`](https://bugpoc.com/testers/other/mock), which lets you create custom endpoints which respond with what you want it to without the hassle of setting up a server!
+You can create public frontend html pages on services like codepen, netlify, glitch etc. But BugPoC has this great tool called [`Mock Endpoint`](https://bugpoc.com/testers/other/mock), which lets you create custom endpoints which respond with what you want it to without the hassle of setting up a server!
 
 ```html
 <html>
@@ -134,9 +136,14 @@ I got the response:
 
 😢
 It didn't work!
-It really only accepts an image!
 
-At this point, I was really confused, and I tried all kinds of XXE payloads, but sadly XXE wasn't it!
+At this point, I was really confused, and I spent a few hours trying
+- XXE
+- ImageTragick
+
+And all of it went in vain! Tried all kinds of payloads, but nothing worked.
+
+From the above response, I understood that it *really only accepts an image*!
 
 So I wanted to know how exactly does it check that it's an image, so I used [RequestBin](https://requestbin.com) and created an endpoint and set it as the image property.
 
@@ -230,7 +237,7 @@ Which is accessing `file:///proc/self/environ`
 
 | Link | Password |
 |------|----------|
-| [https://bugpoc.com/poc#bp-2N0JWe7y](https://bugpoc.com/poc#bp-2N0JWe7y) | wAnpEAcocK85 |
+| [bp-2N0JWe7y](https://bugpoc.com/poc#bp-2N0JWe7y) | wAnpEAcocK85 |
 
 
 
@@ -265,10 +272,10 @@ _HANDLER=lambda_function.lambda_handler
 AWS_LAMBDA_FUNCTION_MEMORY_SIZE=512
 ```
 
-> I have asked for their permission to publish this and you wouldn't find anything because there's no permissions or assets linked to it.
+> I have asked for their permission to publish this and the source code. Although you wouldn't find anything with the AWS metadata because there's no permissions linked.
 
 
-Looking at this, it's clear that it's an AWS Lambda Instance and we have access to the `ACCESS_KEY_ID` and `SESSION_TOKEN`!
+Looking at this, it's clear that it's an AWS Lambda Instance and we have access to the metadata, which seems useless, but is it? :wink:
 
 Now half the work here is done! We have the metadata, but what about the source code?
 
@@ -283,15 +290,18 @@ But then again, if you look at the meta data from `environ`, the path is already
 In the environment variables we fetched, we see:
 
 ```bash
+AWS_EXECUTION_ENV=AWS_Lambda_python3.8
 LAMBDA_TASK_ROOT=/var/task
 HANDLER=lambda_function.lambda_handler
 ```
 
-So I changed the image property to `file:///var/task/lambda_function.py` and there it was, the whole source code was returned in the response!
+This means it's hosting a `python` application, with it's source code in `/var/task` and it's filename is `lambda_function` and the Lambda handler function is `lambda_handler`.
+
+So I changed the image meta tag content to `file:///var/task/lambda_function.py` and there it was, the whole source code was returned in the response!
 
 | Link | Password |
 |------|----------|
-| [https://bugpoc.com/poc#bp-r1FuWguz](https://bugpoc.com/poc#bp-r1FuWguz) | gOreMElON61 |
+| [bp-r1FuWguz](https://bugpoc.com/poc#bp-r1FuWguz) | gOreMElON61 |
 
 
 Here's the prettified code:
@@ -469,3 +479,5 @@ def lambda_handler(event, context):
 ```
 
 Well now we know how it all works! :tada:
+
+If you still have any doubts, just read the source code!
