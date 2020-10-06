@@ -109,8 +109,8 @@ import '../styles/markdown.styl'
 // importing fonts
 import 'typeface-inter'
 import 'typeface-merienda-one'
-import 'typeface-open-sans'
-import 'typeface-fira-code'
+// import 'typeface-open-sans'
+// import 'typeface-fira-code'
 
 
 export default {
@@ -118,24 +118,24 @@ export default {
     navBar: false
   }),
   mounted () {
-    this.initPageLoad()
+    // this.initPageLoad()
   },
   watch: {
-    $route (to, from) {
-      setTimeout(() => {
-        this.initPageLoad()
-      }, 2000)
-    }
+    // $route (to, from) {
+      // setTimeout(() => {
+      //   this.initPageLoad()
+      // }, 2000)
+    // }
   },
   methods: {
-    initPageLoad () {
-      let imgDefer = document.getElementsByTagName('img');
-      for (let i = 0; i < imgDefer.length; i++) {
-        if (imgDefer[i].getAttribute('data-src')) {
-          imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
-        }
-      }
-    },
+    // initPageLoad () {
+      // let imgDefer = document.getElementsByTagName('img');
+      // for (let i = 0; i < imgDefer.length; i++) {
+      //   if (imgDefer[i].getAttribute('data-src')) {
+      //     imgDefer[i].setAttribute('src', imgDefer[i].getAttribute('data-src'));
+      //   }
+      // }
+    // },
     scrollTop () {
       document.body.scrollTop = document.documentElement.scrollTop = 0
     }

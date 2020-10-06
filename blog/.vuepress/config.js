@@ -9,10 +9,9 @@ module.exports = {
       require('tailwindcss'), require('autoprefixer')
     ],
   },
-  markdown: {
-    extendMarkdown: md => {
-      md.set({ breaks: true })
-      md.use(require('markdown-it-image-defer'))
-    }
-  }
+  // markdown: {
+  //   extendMarkdown: md => {
+  //     md.set({ breaks: true })
+  //     md.use(require('markdown-it-image-defer'))
+  //   }
 }
