@@ -31,6 +31,14 @@ Read on for more info, but here's the PoC's just in case you just want to see it
 | Source Code | [bp-r1FuWguz](https://bugpoc.com/poc#bp-r1FuWguz) | gOreMElON61 |
 
 
+## TL;DR
+
+- Exploit LFI via Redirecting to `/etc/passwd`
+- Get AWS Metadata from `/proc/self/environ`
+- Get Source code at `/var/task/lambda_function.py`
+
+Read on to know how I got it!
+
 ## Walkthrough
 
 When you visit the page you'll see this page, which would allow you to share things to some social media platforms.
@@ -481,3 +489,5 @@ def lambda_handler(event, context):
 Well now we know how it all works! :tada:
 
 If you still have any doubts, just read the source code!
+
+Hope you had a nice time reading this. :smile:
