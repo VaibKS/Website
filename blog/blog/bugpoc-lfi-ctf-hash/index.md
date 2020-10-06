@@ -4,6 +4,7 @@ type: article
 date: 2020-10-06
 sidebar: auto
 tags: ctf, hack, bugpoc
+hide: true
 ---
 
 <img alt="BugPoC Logo" style="margin: 40px auto 60px auto; display: block; width: 140px;" src="https://bugpoc.com/icons/bugpoc-small.png"/> 
