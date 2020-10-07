@@ -10,7 +10,6 @@ tags: ctf, hack, bugpoc
 
 # BugPoC LFI CTF [Bonus - AWS Metadata & Source Code]
 
-
 Link to buggywebsite: [https://social.buggywebsite.com](https://social.buggywebsite.com)
 
 ## Rules
@@ -45,7 +44,7 @@ When you visit the page you'll see this page, which would allow you to share thi
 
 ![Social Buggy Website](./img/app.png)
 
-What I first did was look at the JavaScript file, which is `script.min.js`, since I've already used BugPoC, I knew a little how they write their code, and they didn't minify the ecode much which made it easier to read.
+What I first did was look at the JavaScript file, which is `script.min.js`, since I've already used BugPoC, I knew a little how they write their code, and they didn't minify the code much which made it easier to read.
 
 Instead of showing the code, I'll tell you the things it does, which led me to find the vulnerability, since it's all happening in the backend.
 
@@ -149,7 +148,7 @@ At this point, I was really confused, and I spent a few hours trying
 - XXE
 - ImageTragick
 
-And all of it went in vain! Tried all kinds of payloads, but nothing worked.
+And all of it went in vain! Tried all kinds of payloads, but nothing worked. I had almost given up and cooled off for a while, and later it hit me that I just have to redirect to /etc/passwd and fool the server to think it's an image.
 
 From the above response, I understood that it *really only accepts an image*!
 
